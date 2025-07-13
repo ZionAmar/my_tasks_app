@@ -1,0 +1,22 @@
+    <%- include('top_page') %>
+    <h1><%= page_title %></h1>
+    
+    <form action="/users/edit/<%= user.id %>" method="post">
+        <div>
+            <label for="name">שם:</label>
+            <input type="text" id="name" name="name" value="<%= user.name %>" required>
+        </div>
+        <div>
+            <label for="user_name">שם משתמש:</label>
+            <input type="text" id="user_name" name="user_name" value="<%= user.user_name %>" required>
+        </div>
+        <div>
+            <label for="email">אימייל:</label>
+            <input type="email" id="email" name="email" value="<%= user.email %>" required>
+        </div>
+        <button type="submit">שמור שינויים</button>
+    </form>
+    <a href="/users/list">חזור לרשימה</a>
+
+    <%- include('bottom_page') %>
+    

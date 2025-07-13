@@ -1,16 +1,34 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db');
+const userMidd = require('../middleware/userMidd.js');
 
-router.get('/', async (req, res) => {
-    try {
-        const sql = 'SELECT * FROM users'; 
-        const [users] = await db.query(sql);
-        res.json(users);
+router.get('/list', userMidd.getAllUsers, (req, res) => {
+    res.render('user_list', {
+        page_title: "רשימת משתמשים",
+        users: req.users_data,
+        page: req.page,
+        total_pages: req.total_pages,
+    });
+});
 
-    } catch (err) {
-        console.error("Error fetching users:", err);
+router.get('/edit/:id', userMidd.getOneUser, (req, res) => {
+    if (req.user_data) {
+        res.render('user_form', {
+            page_title: "עריכת משתמש",
+            user: req.user_data
+        });
+    } else {
+        res.redirect('/users/list');
     }
 });
+
+router.post('/edit/:id', userMidd.updateUser, (req, res) => {
+    res.redirect('/users/list');
+});
+
+router.post('/delete', userMidd.deleteUser, (req, res) => {
+    res.redirect('/users/list');
+});
+
 
 module.exports = router;
