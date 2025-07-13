@@ -1,34 +1,39 @@
 <!doctype html>
-<html lang="en">
+<html lang="he">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>My tasks</title>
-        <style>
-            body{
-                direction: rtl;
-            }
-        </style>
+        <%- include('styles') %> 
     </head>
-    <body>
-      <header>
-            <nav id="menu">
-                <a href="/">בית</a>
-                <% if (typeof user !== 'undefined' && user) { %>
-                    <a href="/users/edit/<%= user.id %>">עריכת פרופיל</a>
-                    <a href="/categories">ניהול קטגוריות</a>
-                    <a href="/tasks">ניהול משימות</a>
-                    <% if (user.is_admin) { %>
-                        <a href="/users">ניהול משתמשים</a>
+    <body dir="rtl">
+        <header class="main-header">
+            <nav class="main-nav">
+                <div class="nav-logo">
+                    <a href="/">מנהל המשימות</a>
+                </div>
+
+                <input type="checkbox" id="nav-toggle">
+                <label for="nav-toggle" class="hamburger-menu">
+                    &#9776; <!-- סמל המבורגר -->
+                </label>
+
+                <div class="nav-links">
+                    <% if (typeof user !== 'undefined' && user) { %>
+                        <!-- קישורים למשתמש מחובר -->
+                        <span>שלום, <%= user.name %></span>
+                        <a href="/tasks">ניהול משימות</a>
+                        <a href="/categories">ניהול קטגוריות</a>
+                        <a href="/users/edit/<%=user.id%>">עריכת פרופיל</a>
+                        <% if (user.is_admin) { %>
+                            <a href="/users">ניהול משתמשים</a>
+                        <% } %>
+                        <form action="/auth/logout" method="POST">
+                            <button type="submit">התנתק</button>
+                        </form>
+                    <% } else { %>
+                        <!-- קישורים למשתמש אורח -->
+                        <a href="/auth/login">התחברות</a>
+                        <a href="/auth/register">הרשמה</a>
                     <% } %>
-                    <form action="/auth/logout" method="POST" style="display: inline;">
-                        <button type="submit">התנתק</button>
-                    </form>
-                <% } else { %>
-                    <a href="/auth/login">התחברות</a>
-                    <a href="/auth/register">הרשמה</a>
-                <% } %>
+                </div>
             </nav>
-      </header>
+        </header>
+        <main>

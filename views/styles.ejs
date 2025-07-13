@@ -1,0 +1,324 @@
+<style>
+    /* --- משתני צבעים וגלובלי --- */
+    :root {
+        --primary-color: #007bff;
+        --primary-hover: #0056b3;
+        --secondary-color: #6c757d;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+        --light-gray: #f8f9fa;
+        --border-color: #dee2e6;
+        --text-color: #212529;
+        --background-color: #ffffff;
+        --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        direction: rtl;
+        background-color: var(--light-gray);
+        color: var(--text-color);
+        line-height: 1.6;
+    }
+
+    main {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: var(--background-color);
+        border-radius: 8px;
+        box-shadow: var(--box-shadow);
+    }
+
+    /* --- טיפוגרפיה --- */
+    h1, h2 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 0.5rem;
+    }
+
+    a {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* --- טפסים וכפתורים (עם הגבלת רוחב) --- */
+    form {
+        margin-bottom: 1rem;
+        /* ======================================= */
+        /* הוספנו הגבלת רוחב ומרכוז לטפסים */
+        /* ======================================= */
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    button, .add-button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.2s;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    button:hover, .add-button:hover {
+        background-color: var(--primary-hover);
+    }
+
+    button[type="submit"] {
+        font-weight: bold;
+    }
+
+    /* --- טבלאות (עם עטיפה וגלילה) --- */
+    .table-container {
+        /* ======================================= */
+        /* הוספנו עטיפה שמאפשרת גלילה אופקית במידת הצורך */
+        /* ======================================= */
+        overflow-x: auto;
+        width: 100%;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: right;
+        border-bottom: 1px solid var(--border-color);
+        white-space: nowrap; /* מונע שבירת שורות בתוך התאים */
+    }
+
+    th {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: var(--light-gray);
+    }
+    
+    .completed-task {
+        text-decoration: line-through;
+        color: var(--secondary-color);
+    }
+    
+    td form {
+        margin: 0;
+    }
+    
+    td button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+
+
+    /* --- תפריט ניווט רספונסיבי --- */
+    .main-header {
+        background-color: var(--background-color);
+        box-shadow: var(--box-shadow);
+        padding: 0 20px;
+    }
+    
+    .main-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        height: 70px;
+    }
+
+    .nav-logo a {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+    .nav-logo a:hover {
+        text-decoration: none;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .nav-links a {
+        font-weight: 500;
+    }
+    
+    .nav-links form {
+        margin: 0;
+    }
+
+    .nav-links button {
+        background-color: var(--danger-color);
+    }
+
+    .hamburger-menu {
+        display: none;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+    
+    #nav-toggle {
+        display: none;
+    }
+
+    /* --- דפדוף --- */
+    .pagination {
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+    .pagination a, .pagination span {
+        margin: 0 5px;
+        padding: 5px 10px;
+    }
+    .pagination span {
+        font-weight: bold;
+    }
+
+    /* --- עיצוב רשימת קטגוריות --- */
+    .category-list {
+        list-style: none; /* הסרת הנקודות של הרשימה */
+        padding: 0;
+        max-width: 800px; /* הגבלת רוחב הרשימה למראה מקצועי */
+        margin: 1.5rem auto; /* מרכוז הרשימה */
+    }
+
+    .category-list li {
+        display: flex; /* שימוש ב-flexbox ליישור אופקי */
+        justify-content: space-between; /* פיזור התוכן לקצוות */
+        align-items: center; /* יישור אנכי למרכז */
+        padding: 15px 20px;
+        background-color: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        margin-bottom: 10px;
+        transition: var(--transition);
+    }
+
+    .category-list li:hover {
+        box-shadow: var(--shadow);
+        transform: translateY(-2px);
+    }
+
+    .category-list span {
+        font-weight: 500;
+    }
+
+    .category-list .actions {
+        display: flex;
+        align-items: center;
+        gap: 15px; /* רווח בין כפתור העריכה למחיקה */
+    }
+
+    .category-list .actions a,
+    .category-list .actions button {
+        font-size: 1.2rem;
+        color: var(--secondary-color);
+        transition: var(--transition);
+    }
+
+    .category-list .actions a:hover {
+        color: var(--primary-color);
+    }
+
+    .category-list .actions button:hover {
+        color: var(--danger-color);
+    }
+
+    /* --- עיצוב טופס הסינון --- */
+    .filter-form {
+        display: flex; /* שימוש ב-flexbox ליישור אופקי */
+        flex-wrap: wrap; /* מאפשר ירידת שורה במסכים קטנים */
+        align-items: center; /* יישור אנכי למרכז */
+        gap: 15px; /* רווח בין האלמנטים */
+        padding: 15px;
+        background-color: var(--light-gray);
+        border-radius: 8px;
+        max-width: none; /* דריסת הגדרת הרוחב הכללית של טפסים */
+    }
+    
+    .filter-form label {
+        margin-bottom: 0; /* הסרת רווח תחתון מהתוויות */
+    }
+    
+    .filter-form select {
+        width: auto; /* ביטול רוחב 100% כדי שהשדה יתאים לתוכן */
+        min-width: 180px; /* קביעת רוחב מינימלי למראה אחיד */
+        margin-bottom: 0;
+    }
+    
+    .filter-form button {
+        margin-right: auto; /* דחיפת כפתור הסינון לקצה השמאלי של השורה */
+    }
+    /* --- רספונסיביות למובייל --- */
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 70px;
+            right: 0;
+            width: 100%;
+            background-color: var(--background-color);
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        #nav-toggle:checked ~ .nav-links {
+            display: flex;
+        }
+
+        .hamburger-menu {
+            display: block;
+        }
+        
+        /* במובייל, נרצה שהטפסים יתפסו רוחב מלא */
+        form {
+            max-width: 100%;
+        }
+    }
+</style>

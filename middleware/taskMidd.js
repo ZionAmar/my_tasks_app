@@ -1,7 +1,7 @@
 const db = require('../config/db');
 
 const taskMidd = {};
-const TASKS_PER_PAGE = 2;
+const TASKS_PER_PAGE = 10;
 
 taskMidd.getTasks = async (req, res, next) => {
     try {

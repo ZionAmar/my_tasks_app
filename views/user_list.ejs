@@ -31,11 +31,11 @@
 
     <div class="pagination">
         <% if(page > 0) { %>
-            <a href="/users/list?p=<%= page - 1 %>">« הקודם</a>
+            <a href="/users?p=<%= page - 1 %>">« הקודם</a>
         <% } %>
         <span>עמוד <%= page + 1 %> מתוך <%= total_pages %></span>
         <% if(page < total_pages - 1) { %>
-            <a href="/users/list?p=<%= page + 1 %>">הבא »</a>
+            <a href="/users?p=<%= page + 1 %>">הבא »</a>
         <% } %>
     </div>
 

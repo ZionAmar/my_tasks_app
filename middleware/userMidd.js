@@ -1,7 +1,7 @@
 const db = require('../config/db');
 
 const userMidd = {};
-const USERS_PER_PAGE = 2;
+const USERS_PER_PAGE = 10;
 
 userMidd.getAllUsers = async (req, res, next) => {
     try {

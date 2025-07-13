@@ -4,10 +4,8 @@
 
 <a href="/tasks/add" class="add-button">הוסף משימה חדשה</a>
 
-<hr>
-
 <h2>סינון משימות</h2>
-<form action="/tasks" method="GET">
+<form action="/tasks" method="GET" class="filter-form">
     <label for="status">סטטוס:</label>
     <select name="status" id="status">
         <option value="all" <%= filters.status === 'all' ? 'selected' : '' %>>הכל</option>
@@ -24,8 +22,6 @@
     </select>
     <button type="submit">סנן</button>
 </form>
-
-<hr>
 
 <h2>רשימת המשימות</h2>
 <table>
