@@ -44,7 +44,7 @@ authMidd.checkLogin = async (req, res, next) => {
 
         if (users.length > 0) {
             const user = users[0];
-            const tokenPayload = { id: user.id, email: user.email };
+            const tokenPayload = { id: user.id, name: user.name, is_admin: user.is_admin };
             const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: '1d' });
             res.cookie('auth_token', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
             req.loginSuccess = true;
@@ -67,6 +67,14 @@ authMidd.isLogged = (req, res, next) => {
     } catch (err) {
         res.clearCookie('auth_token');
         return res.redirect('/auth/login');
+    }
+};
+
+authMidd.isAdmin = (req, res, next) => {
+    if (req.user && req.user.is_admin) {
+        next();
+    } else {
+        res.status(403).send('<h1> אין לך הרשאת גישה לעמוד זה.</h1></br><a href="/">לדף הבית</a>');
     }
 };
 

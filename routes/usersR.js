@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const userMidd = require('../middleware/userMidd.js');
+const authMidd = require('../middleware/authMidd.js');
 
-router.get('/list', userMidd.getAllUsers, (req, res) => {
+router.get('/list', [userMidd.getAllUsers, authMidd.isAdmin], (req, res) => {
     res.render('user_list', {
         page_title: "רשימת משתמשים",
         users: req.users_data,
@@ -26,7 +27,7 @@ router.post('/edit/:id', userMidd.updateUser, (req, res) => {
     res.redirect('/users/list');
 });
 
-router.post('/delete', userMidd.deleteUser, (req, res) => {
+router.post('/delete', [userMidd.getAllUsers, authMidd.isAdmin], (req, res) => {
     res.redirect('/users/list');
 });
 

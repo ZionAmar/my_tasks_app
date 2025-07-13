@@ -1,18 +1,32 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>My tasks</title>
         <style>
-            td{
-                width: 50px;
-                height: 50px;
-                border:1px solid black;
+            body{
+                direction: rtl;
             }
         </style>
     </head>
-    <title>My tasks</title>
     <body>
-      <header></header>
+      <header>
+            <nav id="menu">
+                <a href="/">בית</a>
+                <% if (typeof user !== 'undefined' && user) { %>
+                    <a href="/users/edit/<%= user.id %>">עריכת פרופיל</a>
+                    <% if (user.is_admin) { %>
+                        <a href="/users/list">ניהול משתמשים</a>
+                    <% } %>
+                    <form action="/auth/logout" method="POST" style="display: inline;">
+                        <button type="submit">התנתק</button>
+                    </form>
+                <% } else { %>
+                    <a href="/auth/login">התחברות</a>
+                    <a href="/auth/register">הרשמה</a>
+                <% } %>
+            </nav>
+      </header>

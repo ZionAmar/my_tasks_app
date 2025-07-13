@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, checkLogin } = require('../middleware/authMidd.');
+const { registerUser, checkLogin } = require('../middleware/authMidd');
 
 router.get('/register', (req, res) => res.render('register'));
 router.get('/login', (req, res) => res.render('login'));
@@ -21,7 +21,6 @@ router.post('/login', checkLogin, (req, res) => {
     }
 });
 
-// POST /auth/logout
 router.post('/logout', (req, res) => {
     res.clearCookie('auth_token');
     res.redirect('/auth/login');
