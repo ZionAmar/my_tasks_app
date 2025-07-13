@@ -1,0 +1,34 @@
+<%- include('top_page') %>
+
+<h1><%= page_title %></h1>
+
+<% if (error) { %>
+    <p style="color:red;"><%= error %></p>
+<% } %>
+
+<form action="/tasks/add" method="POST">
+    <div>
+        <label for="description">תיאור (עד 200 תווים):</label>
+        <input type="text" id="description" name="description" value="<%= task.description || '' %>" maxlength="200" required>
+    </div>
+    <div>
+        <label for="due_date">תאריך יעד:</label>
+        <input type="date" id="due_date" name="due_date" value="<%= task.due_date || '' %>">
+    </div>
+    <div>
+        <label for="category_id">קטגוריה:</label>
+        <select name="category_id" id="category_id">
+            <option value="none">ללא קטגוריה</option>
+            <% categories.forEach(cat => { %>
+                <option value="<%= cat.id %>" <%= task.category_id == cat.id ? 'selected' : '' %>>
+                    <%= cat.name %>
+                </option>
+            <% }); %>
+        </select>
+    </div>
+    <button type="submit">הוסף משימה</button>
+</form>
+
+<a href="/tasks">חזור לרשימת המשימות</a>
+
+<%- include('bottom_page') %>

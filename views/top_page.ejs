@@ -19,8 +19,9 @@
                 <% if (typeof user !== 'undefined' && user) { %>
                     <a href="/users/edit/<%= user.id %>">עריכת פרופיל</a>
                     <a href="/categories">ניהול קטגוריות</a>
+                    <a href="/tasks">ניהול משימות</a>
                     <% if (user.is_admin) { %>
-                        <a href="/users/list">ניהול משתמשים</a>
+                        <a href="/users">ניהול משתמשים</a>
                     <% } %>
                     <form action="/auth/logout" method="POST" style="display: inline;">
                         <button type="submit">התנתק</button>

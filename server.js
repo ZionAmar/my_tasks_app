@@ -11,12 +11,11 @@ app.set('views', path.join(__dirname, "./views"));
 const { isLogged } = require('./middleware/authMidd');
 
 //Routes
-app.get('/', isLogged, (req, res) => {
-    res.render('main',{user:req.user});
-});
+app.get('/', isLogged, (req, res) => {res.render('main',{user:req.user});});
 app.use('/auth', require('./routes/authR'));
 app.use('/users', isLogged, require('./routes/usersR'));
 app.use('/categories', isLogged, require('./routes/categoryR'));
+app.use('/tasks', isLogged, require('./routes/taskR'));
 
 //Start
 app.listen(PORT, () => {
