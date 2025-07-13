@@ -13,11 +13,11 @@
     </div>
     <div>
         <label for="due_date">תאריך יעד:</label>
-        <input type="date" id="due_date" name="due_date" value="<%= task.due_date || '' %>">
+        <input type="date" id="due_date" name="due_date" value="<%= task.due_date || '' %>" required>
     </div>
     <div>
         <label for="category_id">קטגוריה:</label>
-        <select name="category_id" id="category_id">
+        <select name="category_id" id="category_id" required>
             <option value="none">ללא קטגוריה</option>
             <% categories.forEach(cat => { %>
                 <option value="<%= cat.id %>" <%= task.category_id == cat.id ? 'selected' : '' %>>
