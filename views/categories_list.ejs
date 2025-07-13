@@ -1,0 +1,30 @@
+    <%- include('top_page') %>
+
+    <h1><%= page_title %></h1>
+
+    <a href="/categories/add" class="add-button">הוסף קטגוריה חדשה</a>
+
+    <hr>
+
+    <h2>הקטגוריות שלי</h2>
+    <% if (categories && categories.length > 0) { %>
+        <ul>
+            <% for(let category of categories) { %>
+                <li>
+                    <span><%= category.name %></span>
+                    <div class="actions">
+                        <a href="/categories/edit/<%= category.id %>">✏️</a>
+                        <form action="/categories/delete" method="POST" onsubmit="return confirm('האם למחוק?');">
+                            <input type="hidden" name="category_id" value="<%= category.id %>">
+                            <button type="submit">🗑️</button>
+                        </form>
+                    </div>
+                </li>
+            <% } %>
+        </ul>
+    <% } else { %>
+        <p>עדיין לא יצרת קטגוריות.</p>
+    <% } %>
+
+    <%- include('bottom_page') %>
+    

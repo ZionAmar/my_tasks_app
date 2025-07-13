@@ -3,7 +3,7 @@ const router = express.Router();
 const userMidd = require('../middleware/userMidd.js');
 const authMidd = require('../middleware/authMidd.js');
 
-router.get('/list', [userMidd.getAllUsers, authMidd.isAdmin], (req, res) => {
+router.get('/', [userMidd.getAllUsers, authMidd.isAdmin], (req, res) => {
     res.render('user_list', {
         page_title: "רשימת משתמשים",
         users: req.users_data,

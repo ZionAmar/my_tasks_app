@@ -1,0 +1,27 @@
+    <%- include('top_page') %>
+
+    <h1><%= page_title %></h1>
+
+    <% if (error) { %>
+        <p style="color:red;"><%= error %></p>
+    <% } %>
+
+    <% 
+        // הגדרת משתנים דינמיים לטופס
+        const isEditMode = typeof category.id !== 'undefined';
+        const formAction = isEditMode ? `/categories/edit/${category.id}` : '/categories/add';
+        const buttonText = isEditMode ? 'שמור שינויים' : 'הוסף קטגוריה';
+    %>
+
+    <form action="<%= formAction %>" method="POST">
+        <div>
+            <label for="name">שם הקטגוריה:</label>
+            <input type="text" id="name" name="name" value="<%= category.name || '' %>" required>
+        </div>
+        <button type="submit"><%= buttonText %></button>
+    </form>
+
+    <a href="/categories">חזור לרשימה</a>
+
+    <%- include('bottom_page') %>
+    

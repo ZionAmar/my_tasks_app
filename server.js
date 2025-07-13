@@ -16,6 +16,7 @@ app.get('/', isLogged, (req, res) => {
 });
 app.use('/auth', require('./routes/authR'));
 app.use('/users', isLogged, require('./routes/usersR'));
+app.use('/categories', isLogged, require('./routes/categoryR'));
 
 //Start
 app.listen(PORT, () => {
