@@ -19,16 +19,16 @@ router.get('/edit/:id', userMidd.getOneUser, (req, res) => {
             user: req.user_data
         });
     } else {
-        res.redirect('/users/list');
+        res.redirect('/');
     }
 });
 
 router.post('/edit/:id', userMidd.updateUser, (req, res) => {
-    res.redirect('/users/list');
+    res.redirect('/');
 });
 
 router.post('/delete', [userMidd.getAllUsers, authMidd.isAdmin], (req, res) => {
-    res.redirect('/users/list');
+    res.redirect('/users');
 });
 
 

@@ -47,10 +47,10 @@ userMidd.getOneUser = async (req, res, next) => {
 userMidd.updateUser = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { name, username, email } = req.body;
+        const { name, user_name, email } = req.body;
         
         const sql = 'UPDATE users SET name = ?, user_name = ?, email = ? WHERE id = ?';
-        await db.query(sql, [name, username, email, id]);
+        await db.query(sql, [name, user_name, email, id]);
         
         next();
     } catch (err) {
