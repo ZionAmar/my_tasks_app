@@ -2,12 +2,20 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT;
+const path = require('path');
+app.use(express.urlencoded({ extended: false }));
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, "./views"));
+const { isLogged } = require('./middleware/authMidd.');
 
 //Routes
-app.get('/', (req, res) => {
-    res.send('<h1>Task Manager API is running!</h1>');
+app.get('/', isLogged, (req, res) => {
+    res.render('main');
 });
-app.use('/users', require('./routes/usersR'));
+app.use('/auth', require('./routes/authR'));
+app.use('/users', isLogged, require('./routes/usersR'));
 
 //Start
 app.listen(PORT, () => {
