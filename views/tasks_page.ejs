@@ -31,6 +31,7 @@
             <th>תיאור</th>
             <th>קטגוריה</th>
             <th>תאריך יעד</th>
+            <th>עריכה</th>
             <th>מחיקה</th>
         </tr>
     </thead>
@@ -46,6 +47,9 @@
                     <td><%= task.description %></td>
                     <td><%= task.category_name || 'ללא' %></td>
                     <td><%= task.due_date ? new Date(task.due_date).toLocaleDateString('he-IL') : 'אין' %></td>
+                    <td>
+                        <a href="/tasks/edit/<%= task.id %>">✏️</a>
+                    </td>
                     <td>
                         <form action="/tasks/delete/<%= task.id %>" method="POST" onsubmit="return confirm('האם אתה בטוח שברצונך למחוק משימה זו?');">
                             <button type="submit">🗑️</button>

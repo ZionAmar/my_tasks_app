@@ -38,6 +38,34 @@ router.post('/add', taskMidd.addTask, (req, res) => {
     }
 });
 
+router.get('/edit/:id', taskMidd.getOneTask, categoryMidd.getAllCategories, (req, res) => {  
+    if (req.task) {
+        res.render('task_form', {
+            page_title: "עריכת משימה",
+            task: req.task,
+            categories: req.categories,
+            error: null
+        });
+    } else {
+        res.redirect('/tasks');
+    }
+});
+
+router.post('/edit/:id', taskMidd.updateTask, (req, res) => {
+    if (req.error) {
+        categoryMidd.getAllCategories(req, res, () => {
+            res.render('task_form', {
+                page_title: "עריכת משימה",
+                task: { ...req.body, id: req.params.id },
+                categories: req.categories,
+                error: req.error
+            });
+        });
+    } else {
+        res.redirect('/tasks');
+    }
+});
+
 router.post('/toggle/:taskId', taskMidd.toggleTaskStatus, (req, res) => {
     const returnUrl = req.header('Referer') || '/tasks';
     res.redirect(returnUrl);

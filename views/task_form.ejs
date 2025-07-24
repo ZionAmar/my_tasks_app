@@ -1,19 +1,21 @@
 <%- include('top_page') %>
 
-<h1><%= page_title %></h1>
+<% const isEdit = !!task.id; %>
+
+<h1><%= isEdit ? 'עריכת משימה' : 'הוספת משימה חדשה' %></h1>
 
 <% if (error) { %>
     <p style="color:red;"><%= error %></p>
 <% } %>
-
-<form action="/tasks/add" method="POST">
+<form action="/tasks/<%= isEdit ? 'edit/' + task.id : 'add' %>" method="POST">
     <div>
         <label for="description">תיאור (עד 200 תווים):</label>
         <input type="text" id="description" name="description" value="<%= task.description || '' %>" maxlength="200" required>
     </div>
     <div>
         <label for="due_date">תאריך יעד:</label>
-        <input type="date" id="due_date" name="due_date" value="<%= task.due_date || '' %>" required>
+        <% const formatDate = date => date ? new Date(date).toISOString().split('T')[0] : ''; %>
+        <input type="date" id="due_date" name="due_date" value="<%= formatDate(task.due_date) %>" required>
     </div>
     <div>
         <label for="category_id">קטגוריה:</label>
@@ -26,7 +28,7 @@
             <% }); %>
         </select>
     </div>
-    <button type="submit">הוסף משימה</button>
+    <button type="submit"><%= isEdit ? 'עדכן משימה' : 'הוסף משימה' %></button>
 </form>
 
 <a href="/tasks">חזור לרשימת המשימות</a>

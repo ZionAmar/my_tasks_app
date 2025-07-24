@@ -89,6 +89,53 @@ taskMidd.toggleTaskStatus = async (req, res, next) => {
     next();
 };
 
+taskMidd.updateTask = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const { id } = req.params;
+        const { description, due_date, category_id } = req.body;
+
+        if (!description || description.trim() === '') {
+            req.error = 'תיאור המשימה לא יכול להיות ריק.';
+            return next();
+        }
+
+        const sql = 'UPDATE tasks SET description = ?, due_date = ?, category_id = ? WHERE id = ? AND user_id = ?';
+        const category = category_id === 'none' ? null : category_id;
+        const date = due_date || null;
+
+        await db.query(sql, [description, date, category, id, userId]);
+    } catch (err) {
+        console.error(err);
+        req.error = 'שגיאה בעדכון המשימה.';
+    }
+    next();
+};
+
+taskMidd.getOneTask = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const { id } = req.params;
+
+        const sql = `
+            SELECT * FROM tasks
+            WHERE id = ? AND user_id = ?
+        `;
+        const [rows] = await db.query(sql, [id, userId]);
+
+        if (rows.length === 0) {
+            req.task = null;
+        } else {
+            req.task = rows[0];
+        }
+
+        next();
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+};
+
 taskMidd.deleteTask = async (req, res, next) => {
     try {
         const userId = req.user.id;
